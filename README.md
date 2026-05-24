@@ -127,6 +127,8 @@ The frontend auto‑detects the API at `http://127.0.0.1:8000/api` and falls bac
 
 For full installation and Windows kiosk autostart, see [`docs/INSTALLATION.md`](docs/INSTALLATION.md) and [`docs/KIOSK_SETUP.md`](docs/KIOSK_SETUP.md).
 
+To deploy on a shared cPanel host (eHosting Nepal, Hostinger, Namecheap, etc.) see [`docs/CPANEL_DEPLOYMENT.md`](docs/CPANEL_DEPLOYMENT.md). One zip + 9 numbered steps + admin login.
+
 ---
 
 ## Departments covered
