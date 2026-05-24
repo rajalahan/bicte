@@ -6,6 +6,7 @@
  *  - Idle detection → hides cursor on kiosk
  *  - Lang toggle, voice button hook
  *  - Inactivity → auto-return to home after 3 minutes
+ *  - Discreet CMS admin link (bottom-right corner)
  * ============================================================ */
 (function () {
   'use strict';
@@ -155,6 +156,27 @@
     setupLang();
     setupVoice();
     setupIdle();
+    injectAdminLink();
+  }
+
+  // ---------- Discreet admin / CMS link ----------
+  // A tiny gear icon in the bottom-right corner – visible to staff,
+  // unobtrusive for citizens. Override the URL by adding
+  //   <meta name="admin-url" content="https://admin.lahanmun.gov.np/admin">
+  // to any page (or to a shared template).
+  function injectAdminLink() {
+    if (document.querySelector('.admin-link')) return;
+    const meta = document.querySelector('meta[name="admin-url"]');
+    const adminUrl = (meta && meta.content) || 'http://127.0.0.1:8000/admin';
+    const a = document.createElement('a');
+    a.className = 'admin-link';
+    a.href = adminUrl;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.setAttribute('aria-label', 'CMS Admin Login');
+    a.title = 'प्रशासन (Admin CMS)';
+    a.innerHTML = '<i class="bi bi-shield-lock-fill"></i><span class="admin-link__label">Admin</span>';
+    document.body.appendChild(a);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);

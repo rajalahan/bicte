@@ -382,3 +382,48 @@ body.kiosk input, body.kiosk textarea { user-select: text; -webkit-user-select: 
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;
 }
+
+/* ============================================================
+   DISCREET ADMIN / CMS LINK
+   Bottom-right corner. Tiny gear icon. Visible to staff who
+   know to look for it; unobtrusive for citizens.
+   ============================================================ */
+.admin-link {
+  position: fixed;
+  right: 14px;
+  bottom: calc(var(--touch) + 22px); /* sit just above the kiosk-bar */
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: rgba(11, 23, 51, .35);
+  color: rgba(255, 255, 255, .85);
+  text-decoration: none;
+  z-index: 50;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: .35;
+  transition: opacity .2s ease, background .2s ease, width .25s ease, color .2s ease;
+  overflow: hidden;
+  white-space: nowrap;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.admin-link__label { display: none; font-size: 14px; }
+.admin-link:hover, .admin-link:focus-visible {
+  opacity: 1;
+  width: auto;
+  background: var(--np-blue);
+  color: #fff;
+}
+.admin-link:hover .admin-link__label,
+.admin-link:focus-visible .admin-link__label { display: inline; }
+.admin-link i { font-size: 18px; }
+
+@media print {
+  .admin-link { display: none; }
+}
