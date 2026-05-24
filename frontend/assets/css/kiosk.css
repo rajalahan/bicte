@@ -1,0 +1,53 @@
+/* ============================================================
+   Kiosk-mode overrides for 43" touchscreen (1920×1080 typical)
+   Bumps font sizes & touch targets when running fullscreen.
+   ============================================================ */
+
+@media (min-width: 1600px) {
+  body { font-size: 20px; }
+  .brand__name      { font-size: 38px; }
+  .clock__time      { font-size: 36px; }
+  .ticker__track    { font-size: 24px; }
+  .hero__title      { font-size: 46px; }
+  .hero__subtitle   { font-size: 22px; }
+  .section__title   { font-size: 34px; }
+  .dept-tile        { min-height: 200px; }
+  .dept-tile__icon  { width: 76px; height: 76px; font-size: 36px; }
+  .dept-tile__name  { font-size: 20px; }
+  .btn-kiosk        { font-size: 22px; padding: 18px 28px; min-height: 80px; }
+  .kiosk-bar__btn   { min-height: 84px; }
+  .kiosk-bar__btn i { font-size: 30px; }
+  .kiosk-bar__btn span { font-size: 16px; }
+}
+
+@media (min-width: 1920px) {
+  .dept-grid { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* Kiosk fullscreen: hide cursor after idle (added via JS toggling .idle) */
+body.kiosk.idle, body.kiosk.idle * { cursor: none !important; }
+
+/* Disable pull-to-refresh / bounce on touch screens */
+html, body { overscroll-behavior: none; touch-action: manipulation; }
+
+/* Tap highlight off (we handle :active) */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Smooth scrollbars for horizontal scrollers */
+.achievements::-webkit-scrollbar { height: 10px; }
+.achievements::-webkit-scrollbar-thumb { background: rgba(255,255,255,.25); border-radius: 999px; }
+
+/* Safe scaling for portrait kiosks */
+@media (orientation: portrait) and (min-width: 1080px) {
+  .hero { grid-template-columns: 1fr; }
+  .section--split { grid-template-columns: 1fr; }
+  .top-bar { grid-template-columns: 1fr; row-gap: 14px; }
+  .top-bar__right { justify-self: stretch; justify-content: space-between; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track { animation: none; }
+  .fade-in { animation: none; }
+  * { transition: none !important; }
+}

@@ -1,0 +1,38 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Laravel
+backend/vendor/
+backend/node_modules/
+backend/.env
+backend/.env.backup
+backend/.phpunit.result.cache
+backend/storage/*.key
+backend/storage/app/public/
+backend/storage/framework/cache/data/
+backend/storage/framework/sessions/
+backend/storage/framework/views/
+backend/storage/framework/testing/
+backend/storage/logs/
+backend/bootstrap/cache/*.php
+backend/public/storage
+backend/public/hot
+
+# Frontend (kiosk uploads, generated)
+frontend/assets/img/uploads/
+frontend/chrome-profile/
+
+# Backups
+*.sql.gz
+*.tar.gz

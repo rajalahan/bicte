@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ne">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b3d91" />
+  <title>लहान नगरपालिका · डिजिटल सूचना केन्द्र</title>
+
+  <link rel="icon" href="assets/img/logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="assets/css/main.css" rel="stylesheet" />
+  <link href="assets/css/kiosk.css" rel="stylesheet" />
+</head>
+<body class="kiosk" data-page="home">
+
+  <!-- ============== TOP BAR ============== -->
+  <header class="top-bar">
+    <div class="brand">
+      <img src="assets/img/logo.svg" alt="Lahan Municipality logo" class="brand__logo" />
+      <div class="brand__text">
+        <div class="brand__country">नेपाल सरकार</div>
+        <div class="brand__province">मधेश प्रदेश · सिराहा</div>
+        <h1 class="brand__name">लहान नगरपालिका</h1>
+        <div class="brand__office">नगर कार्यपालिकाको कार्यालय · लहान</div>
+      </div>
+    </div>
+
+    <div class="top-bar__center">
+      <div class="ticker" id="notice-ticker" aria-live="polite">
+        <span class="ticker__label"><i class="bi bi-megaphone-fill"></i> सूचना</span>
+        <div class="ticker__viewport">
+          <div class="ticker__track" id="ticker-track">सूचनाहरू लोड हुँदैछन् …</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="top-bar__right">
+      <div class="clock" id="clock">
+        <div class="clock__time" id="clock-time">--:--:--</div>
+        <div class="clock__date">
+          <span id="date-bs">२०८० … …</span>
+          <span class="clock__sep">·</span>
+          <span id="date-ad">---- AD</span>
+        </div>
+      </div>
+      <button class="btn-lang" id="btn-lang" type="button" aria-label="Switch language">
+        <i class="bi bi-translate"></i><span>EN</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============== HERO / WELCOME ============== -->
+  <section class="hero">
+    <div class="hero__panel">
+      <div class="hero__greeting" id="hero-greeting">नमस्कार! 🙏</div>
+      <h2 class="hero__title">लहान नगरपालिकाको डिजिटल सूचना केन्द्रमा यहाँहरूलाई हार्दिक स्वागत छ।</h2>
+      <p class="hero__subtitle">
+        नागरिक सेवा, शाखागत जानकारी, कागजात आवश्यकता, सेवा शुल्क र कार्यविधि सम्बन्धी जानकारी
+        टच गरेर सजिलैसँग प्राप्त गर्न सक्नुहुन्छ। सहयोगका लागि <strong>AI सहायक</strong> सधैं तयार छ।
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn-kiosk btn-kiosk--primary" href="assistant.html">
+          <i class="bi bi-robot"></i> AI सहायकलाई सोध्नुहोस्
+        </a>
+        <a class="btn btn-kiosk btn-kiosk--ghost" href="#departments">
+          <i class="bi bi-grid-3x3-gap-fill"></i> शाखाहरू हेर्नुहोस्
+        </a>
+        <a class="btn btn-kiosk btn-kiosk--ghost" href="token.html">
+          <i class="bi bi-ticket-detailed"></i> टोकन लिनुहोस्
+        </a>
+      </div>
+    </div>
+
+    <aside class="hero__officials" aria-label="नगर नेतृत्व">
+      <article class="official official--mayor" id="card-mayor">
+        <div class="official__photo"><img alt="नगर प्रमुख" src="assets/img/mayor.jpg" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'official__placeholder',innerHTML:'<i class=&quot;bi bi-person-fill&quot;></i>'}))"/></div>
+        <div class="official__body">
+          <div class="official__role">नगर प्रमुख</div>
+          <div class="official__name" data-bind="mayor.name">—</div>
+          <p class="official__message" data-bind="mayor.message">—</p>
+        </div>
+      </article>
+
+      <article class="official" id="card-deputy">
+        <div class="official__photo"><img alt="उप-प्रमुख" src="assets/img/deputy.jpg" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'official__placeholder',innerHTML:'<i class=&quot;bi bi-person-fill&quot;></i>'}))"/></div>
+        <div class="official__body">
+          <div class="official__role">नगर उप-प्रमुख</div>
+          <div class="official__name" data-bind="deputy.name">—</div>
+          <p class="official__message" data-bind="deputy.message">—</p>
+        </div>
+      </article>
+
+      <article class="official" id="card-cao">
+        <div class="official__photo"><img alt="प्रमुख प्रशासकीय अधिकृत" src="assets/img/cao.jpg" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'official__placeholder',innerHTML:'<i class=&quot;bi bi-person-fill&quot;></i>'}))"/></div>
+        <div class="official__body">
+          <div class="official__role">प्रमुख प्रशासकीय अधिकृत</div>
+          <div class="official__name" data-bind="cao.name">—</div>
+          <p class="official__message" data-bind="cao.message">—</p>
+        </div>
+      </article>
+    </aside>
+  </section>
+
+  <!-- ============== DEPARTMENTS GRID ============== -->
+  <section class="section" id="departments">
+    <div class="section__header">
+      <h3 class="section__title"><i class="bi bi-buildings"></i> शाखागत सेवा जानकारी</h3>
+      <p class="section__subtitle">कुनै पनि शाखामा टच गरेर सेवा, कागजात, शुल्क र सम्पर्क हेर्नुहोस्।</p>
+    </div>
+    <div class="dept-grid" id="dept-grid"><!-- filled by department.js → renderDeptGrid() --></div>
+  </section>
+
+  <!-- ============== CITIZEN GUIDANCE + EMERGENCY ============== -->
+  <section class="section section--split">
+    <div class="card card--guidance">
+      <h3 class="card__title"><i class="bi bi-lightbulb-fill"></i> नागरिक मार्गदर्शन</h3>
+      <ol class="guidance">
+        <li>आफूलाई आवश्यक सेवा माथिको शाखा सूचीबाट छनौट गर्नुहोस्।</li>
+        <li>आवश्यक कागजातको सूची र शुल्क हेरेर तयार हुनुहोस्।</li>
+        <li>सम्बन्धित कोठा/तला अनुसार रिसेप्सनमा टोकन लिनुहोस्।</li>
+        <li>सेवा प्राप्त नभएमा <a href="feedback.html">गुनासो / सुझाव</a> पेश गर्नुहोस्।</li>
+        <li>थप जानकारीका लागि <a href="assistant.html">AI सहायक</a>लाई सोध्नुहोस्।</li>
+      </ol>
+    </div>
+
+    <div class="card card--emergency">
+      <h3 class="card__title"><i class="bi bi-telephone-fill"></i> आपतकालीन सम्पर्क</h3>
+      <ul class="emergency" id="emergency-list">
+        <li><span class="emergency__label">नगर प्रहरी</span><a class="emergency__num" href="tel:100">१००</a></li>
+        <li><span class="emergency__label">एम्बुलेन्स</span><a class="emergency__num" href="tel:102">१०२</a></li>
+        <li><span class="emergency__label">अग्नि नियन्त्रण</span><a class="emergency__num" href="tel:101">१०१</a></li>
+        <li><span class="emergency__label">विपद् व्यवस्थापन</span><a class="emergency__num" href="tel:1149">११४९</a></li>
+        <li><span class="emergency__label">नगर कार्यालय</span><a class="emergency__num" data-bind="office.phone" href="#">—</a></li>
+      </ul>
+    </div>
+
+    <div class="card card--weather">
+      <h3 class="card__title"><i class="bi bi-cloud-sun-fill"></i> लहानको मौसम</h3>
+      <div class="weather" id="weather">
+        <div class="weather__temp">--°C</div>
+        <div class="weather__desc">डाटा लोड हुँदैछ …</div>
+        <div class="weather__meta"><i class="bi bi-droplet"></i> --% &nbsp; <i class="bi bi-wind"></i> -- km/h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== ACHIEVEMENTS / FESTIVAL ============== -->
+  <section class="section section--dark">
+    <div class="section__header">
+      <h3 class="section__title"><i class="bi bi-trophy-fill"></i> नगरपालिकाका उल्लेखनीय कार्यहरू</h3>
+    </div>
+    <div class="achievements" id="achievements"><!-- rendered by app.js --></div>
+  </section>
+
+  <!-- ============== FOOTER / KIOSK BAR ============== -->
+  <footer class="kiosk-bar">
+    <a class="kiosk-bar__btn" href="index.html"><i class="bi bi-house-door-fill"></i><span>मुख्य पृष्ठ</span></a>
+    <a class="kiosk-bar__btn" href="assistant.html"><i class="bi bi-robot"></i><span>AI सहायक</span></a>
+    <a class="kiosk-bar__btn" href="notices.html"><i class="bi bi-megaphone-fill"></i><span>सूचना</span></a>
+    <a class="kiosk-bar__btn" href="token.html"><i class="bi bi-ticket-detailed-fill"></i><span>टोकन</span></a>
+    <a class="kiosk-bar__btn" href="directory.html"><i class="bi bi-map-fill"></i><span>दिशा-निर्देश</span></a>
+    <a class="kiosk-bar__btn" href="feedback.html"><i class="bi bi-chat-left-text-fill"></i><span>गुनासो</span></a>
+    <button class="kiosk-bar__btn" id="btn-voice" type="button"><i class="bi bi-mic-fill"></i><span>आवाज</span></button>
+  </footer>
+
+  <!-- ============== SCRIPTS ============== -->
+  <script src="assets/js/i18n.js" defer></script>
+  <script src="assets/js/nepali-date.js" defer></script>
+  <script src="assets/js/clock.js" defer></script>
+  <script src="assets/js/ticker.js" defer></script>
+  <script src="assets/js/api.js" defer></script>
+  <script src="assets/js/department.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>
