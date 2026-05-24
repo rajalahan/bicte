@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ne">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>गुनासो / सुझाव · लहान नगरपालिका</title>
+  <link rel="icon" href="assets/img/logo.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="assets/css/main.css" rel="stylesheet" />
+  <link href="assets/css/kiosk.css" rel="stylesheet" />
+  <link href="assets/css/department.css" rel="stylesheet" />
+  <style>
+    .form-wrap   { padding: 24px 28px; max-width: 920px; margin: 0 auto; }
+    .form-card   { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm); }
+    .form-card h2 { font-size: 28px; color: var(--np-blue-700); margin-bottom: 6px; display: inline-flex; align-items: center; gap: 12px; }
+    .form-card h2 i { color: var(--np-red); }
+    .field       { display: grid; gap: 6px; margin-bottom: 16px; }
+    .field label { font-weight: 700; color: var(--ink); }
+    .field input, .field select, .field textarea {
+      font: inherit; padding: 14px 16px; border-radius: 14px; border: 2px solid var(--line); outline: none; background: #fff;
+      min-height: var(--touch);
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--np-blue); }
+    .field textarea { min-height: 140px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 720px){ .row { grid-template-columns: 1fr; } }
+    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+    .alert { padding: 14px 18px; border-radius: 14px; margin-bottom: 16px; display: none; }
+    .alert--ok { background: #dcfce7; color: #14532d; border: 1px solid #86efac; }
+    .alert--err{ background: #fee2e2; color: #7f1d1d; border: 1px solid #fca5a5; }
+  </style>
+</head>
+<body class="kiosk" data-page="feedback">
+
+  <header class="top-bar">
+    <div class="brand">
+      <img src="assets/img/logo.svg" class="brand__logo" alt="logo"/>
+      <div class="brand__text">
+        <div class="brand__country">नेपाल सरकार · मधेश प्रदेश</div>
+        <h1 class="brand__name">गुनासो / सुझाव</h1>
+        <div class="brand__office">लहान नगरपालिका</div>
+      </div>
+    </div>
+    <div class="top-bar__center">
+      <div class="ticker"><span class="ticker__label"><i class="bi bi-chat-left-text-fill"></i> गुनासो</span>
+        <div class="ticker__viewport"><div class="ticker__track" id="ticker-track">…</div></div>
+      </div>
+    </div>
+    <div class="top-bar__right">
+      <div class="clock" id="clock">
+        <div class="clock__time" id="clock-time">--:--:--</div>
+        <div class="clock__date"><span id="date-bs">—</span><span class="clock__sep">·</span><span id="date-ad">—</span></div>
+      </div>
+      <button class="btn-lang" id="btn-lang" type="button"><i class="bi bi-translate"></i><span>EN</span></button>
+    </div>
+  </header>
+
+  <nav class="breadcrumb-bar">
+    <a href="index.html"><i class="bi bi-house-door-fill"></i> मुख्य पृष्ठ</a>
+    <span class="sep">›</span><span>गुनासो / सुझाव</span>
+  </nav>
+
+  <main class="form-wrap">
+    <div class="form-card">
+      <h2><i class="bi bi-chat-left-text-fill"></i> तपाईंको आवाज हाम्रो प्राथमिकता</h2>
+      <p class="muted">गुनासो वा सुझाव डिजिटल रूपमा पेश गर्नुहोस्। तपाईंको पहिचान गोप्य राखिनेछ। उत्तर पाउन इच्छुक भएमा फोन/इमेल राख्नुहोस्।</p>
+
+      <div class="alert alert--ok"  id="alert-ok">तपाईंको गुनासो/सुझाव सफलतापूर्वक प्राप्त भयो। टिकट नं. <strong id="ticket-id">—</strong></div>
+      <div class="alert alert--err" id="alert-err">पठाउन सकिएन। कृपया केहीबेरमा फेरि प्रयास गर्नुहोस्।</div>
+
+      <form id="feedback-form" novalidate>
+        <div class="row">
+          <div class="field">
+            <label for="name">पूरा नाम <span class="muted">(वैकल्पिक)</span></label>
+            <input id="name" name="name" type="text" maxlength="100" />
+          </div>
+          <div class="field">
+            <label for="phone">सम्पर्क फोन <span class="muted">(वैकल्पिक)</span></label>
+            <input id="phone" name="phone" type="tel" maxlength="20" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="dept">सम्बन्धित शाखा</label>
+            <select id="dept" name="department"><option value="">— छनौट गर्नुहोस् —</option></select>
+          </div>
+          <div class="field">
+            <label for="type">किसिम</label>
+            <select id="type" name="type">
+              <option value="complaint">गुनासो</option>
+              <option value="suggestion">सुझाव</option>
+              <option value="appreciation">प्रशंसा</option>
+              <option value="info">सूचना अनुरोध</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="subject">विषय</label>
+          <input id="subject" name="subject" type="text" maxlength="180" required />
+        </div>
+
+        <div class="field">
+          <label for="message">विस्तृत विवरण</label>
+          <textarea id="message" name="message" required maxlength="2000" placeholder="कृपया घटना/सेवा सम्बन्धी विवरण लेख्नुहोस् …"></textarea>
+        </div>
+
+        <div class="toolbar">
+          <button type="submit" class="btn-kiosk btn-kiosk--primary"><i class="bi bi-send-fill"></i> पेश गर्नुहोस्</button>
+          <button type="reset"  class="btn-kiosk btn-kiosk--ghost"><i class="bi bi-arrow-counterclockwise"></i> खाली गर्नुहोस्</button>
+          <a href="index.html" class="btn-kiosk btn-kiosk--ghost"><i class="bi bi-arrow-left"></i> मुख्य पृष्ठ</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="kiosk-bar">
+    <a class="kiosk-bar__btn" href="index.html"><i class="bi bi-house-door-fill"></i><span>मुख्य पृष्ठ</span></a>
+    <a class="kiosk-bar__btn" href="assistant.html"><i class="bi bi-robot"></i><span>AI सहायक</span></a>
+    <a class="kiosk-bar__btn" href="notices.html"><i class="bi bi-megaphone-fill"></i><span>सूचना</span></a>
+    <a class="kiosk-bar__btn" href="token.html"><i class="bi bi-ticket-detailed-fill"></i><span>टोकन</span></a>
+    <a class="kiosk-bar__btn" href="directory.html"><i class="bi bi-map-fill"></i><span>दिशा-निर्देश</span></a>
+    <a class="kiosk-bar__btn" href="feedback.html"><i class="bi bi-chat-left-text-fill"></i><span>गुनासो</span></a>
+    <button class="kiosk-bar__btn" id="btn-voice" type="button"><i class="bi bi-mic-fill"></i><span>आवाज</span></button>
+  </footer>
+
+  <script src="assets/js/i18n.js" defer></script>
+  <script src="assets/js/nepali-date.js" defer></script>
+  <script src="assets/js/clock.js" defer></script>
+  <script src="assets/js/ticker.js" defer></script>
+  <script src="assets/js/api.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/feedback.js" defer></script>
+</body>
+</html>
